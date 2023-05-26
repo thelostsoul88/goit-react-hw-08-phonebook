@@ -1,19 +1,19 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import Nav from '../Navigation/Nav';
-import Loader from '../Loader/Loader';
 
-const Layout = () => {
+import { Loader } from 'components/Loader';
+import { Header } from 'components/Header';
+
+import { ToastContainer } from 'react-toastify';
+
+export const Layout = () => {
   return (
-    <>
-      <Nav />
+    <div>
+      <Header />
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
-      <Toaster />
-    </>
+      <ToastContainer />
+    </div>
   );
 };
-
-export default Layout;

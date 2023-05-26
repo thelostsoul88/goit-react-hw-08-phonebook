@@ -1,13 +1,4 @@
-import {
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit';
-import { filterReducer } from './reducer';
-import { contactsApi } from './contactsApi';
-import { setupListeners } from '@reduxjs/toolkit/query';
-import persistReducer from 'redux-persist/es/persistReducer';
-import storage from 'redux-persist/lib/storage';
+import { configureStore, getDefaultMiddleware,combineReducers } from '@reduxjs/toolkit';
 import {
   persistStore,
   FLUSH,
@@ -17,13 +8,18 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { authApi } from './auth/authApi';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { filterReducer } from './contacts/contactsSlice';
+import { contactsApi } from './contacts/contactsApi';
+import { authReducer } from './auth/slice';
 
 const authPersistConfig = {
   key: 'auth',
   storage,
   whitelist: ['token'],
-};
+}
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -31,10 +27,13 @@ const middleware = [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
-  contactsApi.middleware,
-];
+    contactsApi.middleware,
+]
 
-const persistedAppReducer = persistReducer(authPersistConfig, authApi.reducer);
+const persistedAppReducer = persistReducer(
+  authPersistConfig,
+  authReducer,
+)
 
 const appReducer = combineReducers({
   filter: filterReducer,
@@ -49,11 +48,14 @@ const rootReducer = (state, action) => {
   return appReducer(state, action);
 };
 
+
+
 export const store = configureStore({
   reducer: rootReducer,
   middleware,
 });
 
 export const persistor = persistStore(store);
+
 
 setupListeners(store.dispatch);

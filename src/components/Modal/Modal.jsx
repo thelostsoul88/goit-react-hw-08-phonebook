@@ -5,18 +5,18 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 500,
+  width: 400,
+  bgcolor: '#646cff',
   border: '2px solid colors.grey',
-  borderRadius: 2,
+  borderRadius: 5,
   boxShadow: 24,
   p: 3,
-  backgroundColor: 'white',
 };
-const BaseModal = ({ children }) => {
+
+export const BasicModal = ({ children }) => {
   return (
     <Modal open={true}>
       <Box sx={style}>{children}</Box>
     </Modal>
   );
 };
-export default BaseModal;
