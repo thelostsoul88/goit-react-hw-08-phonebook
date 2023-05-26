@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const containerAdd = {
   position: 'absolute',
   top: 80,
-  right: 50,
+  right: 80,
   p: 2,
   width: 300,
   zIndex: 1,
