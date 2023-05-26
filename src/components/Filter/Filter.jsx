@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { selectFilter } from 'redux/contacts/selectors';
 import { filter } from 'redux/contacts/contactsSlice';
-
 import { Box, Button, Input, InputAdornment, Stack } from '@mui/material';
 import { AddContact } from 'components/AddContact';
 import { BiSearchAlt } from 'react-icons/bi';
-import { Title } from 'components/Title';
 
 const btnAdd = {
   color: 'white',
@@ -53,9 +50,7 @@ export const Filter = () => {
         </Button>
         {showAddContact && <AddContact handleClick={handleClick} />}
       </Box>
-      <div className="ml-10">
-        <Title>Contacts</Title>
-      </div>
+      <div className="ml-10"></div>
       <Box component="div">
         <Input
           placeholder="Find contact by name"
